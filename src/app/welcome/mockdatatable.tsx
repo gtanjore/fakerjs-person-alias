@@ -15,6 +15,15 @@ interface Person {
   alias: Alias[];
 }
 
+function formatDate(isoDate: string): string {
+  const date: Date = new Date(isoDate);
+  const month: string = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+  const day: string = String(date.getDate()).padStart(2, '0');
+  const year: number = date.getFullYear();
+  
+  return `${month}/${day}/${year}`;
+}
+
 const MockDataTable: React.FC = () => {
   const [data, setData] = useState<Person[]>([]);
 
@@ -40,7 +49,7 @@ const MockDataTable: React.FC = () => {
             <tr key={index}>
               <td>{person.firstname}</td>
               <td>{person.lastname}</td>
-              <td>{person.dateofbirth}</td>
+              <td>{formatDate(person.dateofbirth)}</td>
               <td>
                 {person.alias.length > 0 ? (
                   <ul>
